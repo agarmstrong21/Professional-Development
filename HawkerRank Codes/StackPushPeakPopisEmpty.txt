@@ -1,0 +1,102 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    private static final Scanner scan = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        Stack s = new LinkedStack();
+        while(scan.hasNextLine()) {
+            int d = Integer.parseInt(scan.nextLine().trim());
+            s.push(d);
+        }
+        while (!s.isEmpty()) {
+            System.out.println(s.peek());
+            System.out.println(s.pop());
+        }
+    }
+}
+
+// Specification for the abstract data type (ADT) Stack
+interface Stack {
+    /* put d on the top of this Stack */
+    public void push(Object d);
+    
+    /* remove the top element of this Stack and return it */
+    public Object pop();
+    
+    /* return the top element of this Stack but don't remove it */
+    public Object peek();
+    
+    /* returns true if this Stack has no elements */
+    public boolean isEmpty();
+}
+
+// you must use ListNode objects in LinkedStack
+class Node {
+        Object data;
+        Node next;
+        public Node(Object d) {
+            this.data = d;
+            this.next = null;
+        }
+}
+
+// an implementation of Stack that uses ListNodes
+class LinkedStack implements Stack {
+
+    // your instance variables go here
+    Node head;
+    int size;
+    public LinkedStack() {
+        // your constructor code
+        head = null;
+        size = 0;
+    }
+    
+
+    // your methods go here
+    
+    public void push(Object p){
+        Node pushed = new Node(p);
+        if(size == 0)
+        {
+            head = pushed;
+        }
+        else{
+        pushed.next = head;
+        head = pushed;
+        }
+        size++;
+    }
+
+    public Object pop(){
+        Object returnElement = head.data;
+        if(size == 1){
+            head = null;
+        } 
+        else{
+            head = head.next;
+        }
+        size--;
+        return returnElement;
+    }
+
+    public Object peek(){
+        return head.data;
+    }
+
+    public boolean isEmpty(){
+        if(size != 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+} // end of LinkedStack class

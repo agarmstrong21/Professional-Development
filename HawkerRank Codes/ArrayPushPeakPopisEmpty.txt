@@ -1,0 +1,133 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+import java.util.Arrays;
+
+
+public class Solution {
+
+    private static final Scanner scan = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int cap = 5;
+        Stack s = new ArrayStack(cap);
+        while(scan.hasNextLine()) {
+            int d = Integer.parseInt(scan.nextLine().trim());
+            s.push(d);
+        }
+        while (!s.isEmpty()) {
+            System.out.println(s.peek());
+            System.out.println(s.pop());
+        }
+    }
+}
+
+// Specification for the abstract data type (ADT) Stack
+interface Stack {
+    /* put d on the top of this Stack */
+    public void push(Object d);
+    
+    /* remove the top element of this Stack and return it */
+    public Object pop();
+    
+    /* return the top element of this Stack but don't remove it */
+    public Object peek();
+    
+    /* returns true if this Stack has no elements */
+    public boolean isEmpty();
+}
+
+// an implementation of Stack that uses an Array
+class ArrayStack implements Stack {
+    private Object[] elements; 
+    public ArrayStack(int capacity) {
+        elements = new Object[capacity];
+        size = 0;
+        cap = capacity;
+        // the rest of your constructor code goes here
+
+    }
+    
+
+// your additional instance variables go here
+    int size;
+    int cap;
+    
+    
+
+    // your methods go here
+    
+    // PUSH should resize the array to 2*length if it gets full!
+    public void push(Object p){
+        if(size < cap){
+            elements[size] = p;
+            size++;
+        }
+        else{
+            cap = cap*2;
+            Object[] elements2 = new Object[cap];
+            for(int i =0; i < size; i++)
+            {
+                elements2[i] = elements[i];
+            }
+            elements2[size] = p;
+            elements = new Object[cap];
+            elements = elements2;
+            size++;
+        }
+    }
+
+    public Object pop(){
+            Object returnElement = elements[size-1];
+            elements[size-1] = null;
+            size--;
+            return returnElement;
+    }
+
+    public Object peek(){
+        return elements[size-1];
+    }
+
+    public boolean isEmpty(){
+        if (size == 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+// your additional instance variables go here
+    
+    
+    
+
+    // your methods go here
+    
+    // PUSH should resize the array to 2*length if it gets full!
+    public Object push(object p){
+
+    }
+
+    public Object pop(){
+        Object returnElement = elements[size-1];
+        
+    }
+
+    public Object peek(){
+        
+    }
+
+    public boolean isEmpty(){
+        if (this.length() == 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+} // end of ArrayStack class

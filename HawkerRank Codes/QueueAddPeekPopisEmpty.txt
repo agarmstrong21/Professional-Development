@@ -1,0 +1,119 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    private static final Scanner scan = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        Queue q = new LinkedQueue();
+        while(scan.hasNextLine()) {
+            int d = Integer.parseInt(scan.nextLine().trim());
+            q.add(d);
+        }
+        while (!q.isEmpty()) {
+            System.out.println(q.peek());
+            System.out.println(q.pop());
+        }
+    }
+}
+
+// Specification for the abstract data type (ADT) Queue
+interface Queue {
+    /* put d at the back of this Queue */
+    public void add(Object d);
+    
+    /* remove the element at the front of this Queue and return it */
+    public Object pop();
+    
+    /* return the element at the front of the Queue, but don't remove it */
+    public Object peek();
+    
+    /* returns true if this Queue is empty */
+    public boolean isEmpty();
+}
+
+// you must use ListNode objects in LinkedQueue
+class Node {
+        Object data;
+        Node next;
+        public Node(Object d) {
+            this.data = d;
+            this.next = null;
+        }
+}
+
+// an implementation of Queue that uses ListNodes
+class LinkedQueue implements Queue {
+
+    // your instance variables go here
+    Node head;
+    Node tail;
+    int size;
+
+    public LinkedQueue() {
+        // your constructor code
+        head = null;
+        tail = null;
+        size = 0;
+    }
+    
+
+    // your methods go here
+    
+    public void add(Object p){
+        Node add = new Node(p);
+        if(size == 0){
+            head = add;
+            tail = head;
+            size++;
+        }
+        else{
+            tail.next = add;
+            tail = add;
+            size++;
+        }
+    }
+
+    public Object pop(){
+        Object returnElement = head.data;
+        if(size == 1){
+            head = null;
+        }
+        else{
+            head = head.next;
+        }
+        size--;
+        return returnElement;        
+    }
+
+    public Object peek(){
+        // Node temp = head;
+        // for(int i = 0; i < size; i++){
+        //     temp = temp.next;
+        // }
+        // return temp.data;
+        if(head == null)
+        {
+            return null;
+        }
+        return head.data;
+    }
+
+    public boolean isEmpty(){
+        if(size == 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    
+
+
+} // end of LinkedQueue class
